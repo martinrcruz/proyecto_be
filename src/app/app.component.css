@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+
+a.fc-event a.fc-event-draggable a.fc-event-resizable a.fc-event-start a.fc-event-end a.fc-event-past a.fc-daygrid-event a.fc-daygrid-dot-event {
+  background-color: black !important;
+}
+
+fc-event fc-event-draggable fc-event-resizable fc-event-start fc-event-end fc-event-past fc-daygrid-event fc-daygrid-dot-event {
+  background-color: black !important;
+}

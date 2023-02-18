@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <div class="row pt-3 mb-4" style="background-color: rgb(207, 115, 28);">
+    <div class="col-10">
+      <h2 mat-dialog-title style="color:white;size: 18px;font-weight: 550;">Agendar una hora</h2>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+</div>
+<form [formGroup]="calendarioForm" (ngSubmit)="updateCalendario()">
+  <mat-dialog-content>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h4><strong>Id del jugador: </strong> {{this.usuario.id}}</h4>
+        </div>
+        <div class="col-6">
+          <h4><strong>Nombre del jugador:</strong> {{this.usuario.nombre}}</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <h4><strong>Correo jugador:</strong> {{this.usuario.correo}}</h4>
+        </div>
+        <div class="col-6">
+          <h4><strong>Numero jugador:</strong> {{this.usuario.numero}}</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <h4><strong>Fecha inicio:</strong> {{this.fechaInicio}}</h4>
+        </div>
+        <div class="col-6">
+          <h4><strong>Fecha fin:</strong> {{this.fechaFin}}</h4>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecciona al jugador 1: </mat-label>
+            <mat-select formControlName="id_usuario_1">
+              <mat-option *ngFor="let jugador of jugadorList" [value]="jugador.id_jugador">
+                {{jugador.nombre_jugador}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecciona al jugador 2: </mat-label>
+            <mat-select formControlName="id_usuario_2">
+              <mat-option *ngFor="let jugador of jugadorList" [value]="jugador.id_jugador">
+                {{jugador.nombre_jugador}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecciona tu serie: </mat-label>
+            <mat-select formControlName="id_serie">
+              <mat-option *ngFor="let serie of serieList" [value]="serie.id_serie">
+                {{serie.nombre_serie}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecciona tu club: </mat-label>
+            <mat-select formControlName="id_club">
+              <mat-option *ngFor="let club of clubList" [value]="club.id_club">
+                {{club.nombre_club}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Observacion</mat-label>
+            <textarea matInput placeholder="Escribe aqui tu observacion" formControlName="observacion"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-2">
+          <button mat-button mat-dialog-close class="btn btn-danger">Cancelar</button>
+        </div>
+        <div class="col-6">
+        </div>
+        <div class="col-2">
+          <button mat-button mat-dialog-close class="btn btn-warning" style="margin-left: -20px; color:white;" (click)="this.eliminarCalendario()">Eliminar</button>
+        </div>
+        <div class="col-2">
+          <button mat-button mat-dialog-close class="btn btn-success" style="margin-left: -20px;"
+            type="submit">Agendar</button>
+        </div>
+      </div>
+    </div>
+
+  </mat-dialog-actions>
+</form>
