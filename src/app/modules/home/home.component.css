@@ -1,0 +1,10 @@
+.boton-tennis {
+  background-color: orange;
+  color:white;
+  padding: 10px 60px 10px 60px;
+  
+}
+.boton-tennis:hover {
+  background-color: white;
+  color:orange;
+}

@@ -1,0 +1,26 @@
+<div class="container-fluid" style="background-image: url('/assets/imagenes/tennis-2.jpg'); background-position: center; height: 92% !important;">
+  <div class="row" style="padding-top: 13%;">
+    <div class="col-4"></div>
+    <div class="col p-5" style="background-color: rgba(255, 255, 255, 0.699);">
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <h1 class="h3 mb-3 fw-normal text-center">Ingresa a tu cuenta</h1>
+        <div class="form-floating">
+          <input type="identity" formControlName="identity" class="form-control" id="identity"
+            placeholder="nombre@correo.com">
+          <label for="floatingInput">Nombre de usuario: </label>
+        </div>
+        <hr>
+        <div class="form-floating">
+          <input type="password" formControlName="password" class="form-control" id="floatingPassword"
+            placeholder="Contraseña">
+          <label for="floatingPassword">Contraseña: </label>
+        </div>
+        <br><br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+      </form>
+
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>

@@ -11,6 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCalendarioActualizarComponent } from './modal-calendario-actualizar/modal-calendario-actualizar.component';
 import { CalendarioService } from 'src/app/services/calendario.service';
 import * as dayjs from 'dayjs';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { ModalCampeonatoInscripcionComponent } from './modal-campeonato-inscripcion/modal-campeonato-inscripcion.component';
 
 @Component({
   selector: 'app-calendario',
@@ -28,6 +30,8 @@ export class CalendarioComponent implements OnInit {
     serie: '00 MUY WENO',
     club: 'SUPERCAMPEONES'
   }
+
+  newEvents: any = [];
 
   eventos: any = [];
 
@@ -55,22 +59,21 @@ export class CalendarioComponent implements OnInit {
     },
     titleFormat: { dateStyle: 'long' },
     dayHeaderFormat: { weekday: 'long' },
-    slotDuration: '00:30:00',
-    slotMinTime: '08:00:00',
-    slotMaxTime: '23:00:00',
+    slotDuration: '01:00:00',
+    slotMinTime: '00:00:00',
+    slotMaxTime: '01:00:00',
     locale: esLocale,
     timeZone: 'America/Santiago',
     height: 770,
-    selectAllow: ((res: any) => {
-
-      if (dayjs(res.start).day() == 5 || ((dayjs(res.start).hour() > 8) && (dayjs(res.end).hour() < 21))) {
-          return null;
-      } else if(dayjs(res.start).day() == 6 || ((dayjs(res.start).hour() > 8) && (dayjs(res.end).hour() < 21))){
-        return null;
-      } else {
-        return res;
-      }
-    })
+    // selectAllow: ((res: any) => {
+    //   if (dayjs(res.start).day() == 5 || ((dayjs(res.start).hour() > 8) && (dayjs(res.end).hour() < 21))) {
+    //     return null;
+    //   } else if (dayjs(res.start).day() == 6 || ((dayjs(res.start).hour() > 8) && (dayjs(res.end).hour() < 21))) {
+    //     return null;
+    //   } else {
+    //     return res;
+    //   }
+    // })
   };
 
   currentEvents: EventApi[] = [];
@@ -78,25 +81,25 @@ export class CalendarioComponent implements OnInit {
   constructor(
     private agendaService: AgendaService,
     private calendarioService: CalendarioService,
+    private campeonatoService: CampeonatoService,
     private dialog: MatDialog
   ) {
-    this.getCalendario();
   }
 
   ngOnInit() {
     this.getCalendario();
+    this.getCampeonatos();
   }
 
   getCalendario() {
     this.calendarioService.getCalendario()
       .subscribe({
         next: (res) => {
-          var newEvents: any = [];
           var newData = Object.entries(res)
           const datos = (newData[1][1])
 
           for (let i = 0; i < datos.length; i++) {
-            newEvents.push({
+            this.newEvents.push({
               id_agendamiento: datos[i].id_agendamiento,
               id_usuario: datos[i].id_usuario,
               id_serie: datos[i].id_serie,
@@ -109,9 +112,35 @@ export class CalendarioComponent implements OnInit {
               borderColor: (this.usuario.id == datos[i].id_usuario ? "#d4770d" : "gray"),
             })
           }
+        },
+        error: (err: any) => {
+          alert('Error fetching')
+        }
+      })
+  }
 
+  getCampeonatos() {
+    this.campeonatoService.getCampeonato()
+      .subscribe({
+        next: (res) => {
+          var newData = Object.entries(res)
+          const datos = (newData[1][1])
 
-          this.calendarOptions.events = newEvents;
+          for (let i = 0; i < datos.length; i++) {
+            this.newEvents.push({
+              id_campeonato: datos[i].id_campeonato,
+              id_usuario: datos[i].id_usuario,
+              titulo: datos[i].titulo,
+              descripcion: datos[i].descripcion,
+              start: datos[i].fecha_inicio,
+              end: datos[i].fecha_fin,
+              title: "Carlos vs Juanito Perez",
+              display: "block",
+              backgroundColor: "#5e7be6",
+              borderColor: "#5e7be6"
+            })
+          }
+          this.calendarOptions.events = this.newEvents;
         },
         error: (err: any) => {
           alert('Error fetching')
@@ -142,22 +171,38 @@ export class CalendarioComponent implements OnInit {
         fechaFin: dayjs(date).add(1, 'hour')
       }
     }).afterClosed().subscribe(() => {
-      this.getCalendario();
+      this.ngOnInit();
     })
   }
 
   handleEventClick(clickInfo: EventClickArg) {
+
+
     let id_agenda = clickInfo.event.extendedProps['id_agendamiento']
+    let id_campeonato = clickInfo.event.extendedProps['id_campeonato']
     let id_usuario = clickInfo.event.extendedProps['id_usuario']
+
+    let id = 0;
+    let componente = null;
+
+    if (id_agenda != null && id_agenda != "") {
+      id = id_agenda;
+      componente = ModalCalendarioActualizarComponent
+
+    } else if (id_campeonato != null && id_campeonato != "") {
+      id = id_campeonato;
+      componente = ModalCampeonatoInscripcionComponent
+    }
+
     if (id_usuario == this.usuario.id) {
-      let dialogRef = this.dialog.open(ModalCalendarioActualizarComponent, {
+      let dialogRef = this.dialog.open(componente!, {
         height: '650px',
         width: '650px',
         data: {
-          id: id_agenda,
+          id: id,
         }
       }).afterClosed().subscribe(() => {
-        this.getCalendario();
+        this.ngOnInit();
       })
     }
   }

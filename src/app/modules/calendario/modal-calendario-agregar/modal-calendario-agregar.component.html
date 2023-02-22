@@ -30,11 +30,32 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
-          <h4><strong>Fecha inicio:</strong> {{this.fechaInicio}}</h4>
+        <div class="col-4">
+          <h4><strong>Fecha:</strong> {{this.fechaInicio}}</h4>
         </div>
         <div class="col-6">
-          <h4><strong>Fecha fin:</strong> {{this.fechaFin}}</h4>
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label><strong>Bloque horario:</strong> - </mat-label>
+            <mat-select formControlName="bloque_horario">
+
+              <mat-option value="08:00" *ngIf="this.disponibilidad_horaria[0]">08:00 - 09:00</mat-option>
+              <mat-option value="09:00" *ngIf="this.disponibilidad_horaria[1]">09:00 - 10:00</mat-option>
+              <mat-option value="10:00" *ngIf="this.disponibilidad_horaria[2]">10:00 - 11:00</mat-option>
+              <mat-option value="11:00" *ngIf="this.disponibilidad_horaria[3]">11:00 - 12:00</mat-option>
+              <mat-option value="12:00" *ngIf="this.disponibilidad_horaria[4]">12:00 - 13:00</mat-option>
+              <mat-option value="13:00" *ngIf="this.disponibilidad_horaria[5]">13:00 - 14:00</mat-option>
+              <mat-option value="14:00" *ngIf="this.disponibilidad_horaria[6]">14:00 - 15:00</mat-option>
+              <mat-option value="15:00" *ngIf="this.disponibilidad_horaria[7]">15:00 - 16:00</mat-option>
+              <mat-option value="16:00" *ngIf="this.disponibilidad_horaria[8]">16:00 - 17:00</mat-option>
+              <mat-option value="17:00" *ngIf="this.disponibilidad_horaria[9]">17:00 - 18:00</mat-option>
+              <mat-option value="18:00" *ngIf="this.disponibilidad_horaria[10]">18:00 - 19:00</mat-option>
+              <mat-option value="19:00" *ngIf="this.disponibilidad_horaria[11]">19:00 - 20:00</mat-option>
+              <mat-option value="20:00" *ngIf="this.disponibilidad_horaria[12]">20:00 - 21:00</mat-option>
+              <mat-option value="21:00" *ngIf="this.disponibilidad_horaria[13]">21:00 - 22:00</mat-option>
+              <mat-option value="22:00" *ngIf="this.disponibilidad_horaria[14]">22:00 - 23:00</mat-option>
+
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -45,8 +66,8 @@
           <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Selecciona al jugador 1: </mat-label>
             <mat-select formControlName="id_usuario_1">
-              <mat-option *ngFor="let jugador of jugadorList" [value]="jugador.id_serie">
-                {{jugador.nombre_serie}}
+              <mat-option *ngFor="let jugador of jugadorList" [value]="jugador.id_jugador">
+                {{jugador.nombre_jugador}}
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
-import { AuthComponent } from './modules/auth/auth.component';
 import { ContactComponent } from './modules/contact/contact.component';
 import { RouterOutlet } from '@angular/router';
 import { BaseComponent } from './modules/base/base.component';
@@ -28,19 +27,26 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CampeonatoComponent } from './modules/campeonato/campeonato.component';
+import { ModalRevisarComponent } from './modules/agendamiento/modal-revisar/modal-revisar.component';
+import { AgregarCampeonatoComponent } from './modules/campeonato/agregar-campeonato/agregar-campeonato.component';
+import { IngresoComponent } from './modules/auth/ingreso/ingreso.component';
+import { ModalCampeonatoInscripcionComponent } from './modules/calendario/modal-campeonato-inscripcion/modal-campeonato-inscripcion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AuthComponent,
     ContactComponent,
     BaseComponent,
     AgendamientoComponent,
     CalendarioComponent,
     ModalCalendarioAgregarComponent,
     ModalCalendarioActualizarComponent,
-    CampeonatoComponent
+    CampeonatoComponent,
+    ModalRevisarComponent,
+    AgregarCampeonatoComponent,
+    IngresoComponent,
+    ModalCampeonatoInscripcionComponent
   ],
   imports: [
     BrowserModule,
