@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-revisar',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalRevisarComponent implements OnInit {
 
-  constructor() { }
+  clubList: any
+  serieList: any
+  jugadorList: any
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
